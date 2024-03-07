@@ -1,0 +1,35 @@
+关于maven依赖爆红刷新不下载的问题解决思路
+
+maven经常出现爆红，刷新完成，但jar包还是爆红，完全没有下载的意思😅。
+本人在maven上也是多次出现和解决问题了，于是总结一些思考方向。
+
+分析及解决思路：
+第一考虑maven和idea版本的适配问题
+maven可能会过新，可以考虑适度降低maven版本。具体可以百度。
+
+第二考虑idea抽风
+这个确实😅，直接新建一个maven空项目把另一个项目的爆红依赖复制过去刷，就能下载了，纯逆天。只能说idea是这样的。。
+
+最后考虑仓库问题
+仓库用阿里云就行了，别的花里胡哨不会有明显更好的，settings配置了一般都正常，如果是有的依赖能下有的没反应更可能是抽风问题。
+
+部分其他
+要是maven安装时的配置和jdk设置的问题那没得说了。
+
+还有一些更没说法的什么
+mvn -U idea:idea，
+clean再package，
+导入vm选项添加
+-Dmaven.wagon.http.ssl.insecure=true
+-Dmaven.wagon.http.ssl.allowall=true
+-Dmaven.wagon.http.ssl.ignore.validity.dates=true
+这几种，反正我是都没用。
+
+附一个本人当前的mirror
+
+<mirror>
+      <id>mavenrepo</id>
+      <mirrorOf>central</mirrorOf>
+      <name>maven1</name>
+      <url>https://repo1.maven.org/maven2/</url>
+</mirror>
